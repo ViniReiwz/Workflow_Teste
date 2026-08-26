@@ -68,6 +68,12 @@ $menu = [
 
 $right_menu = [
     [
+        'key' => 'uspdev-workflow',
+    ],
+    [
+        'key' => 'uspdev-forms'
+    ],
+    [
         // menu utilizado para views da biblioteca senhaunica-socialite.
         'key' => 'senhaunica-socialite',
     ],

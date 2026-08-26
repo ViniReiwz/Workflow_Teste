@@ -26,6 +26,13 @@
         "uspdev/laravel-usp-theme": "^2.8",
         "uspdev/senhaunica-socialite": "^4.5"
     },
+    "repositories": [
+        {
+            "type": "path",
+            "url": "../workflow",
+            "options": {"symlink": true}
+        }
+    ],
     "require-dev": {
         "spatie/laravel-ignition": "^2.0",
         "fakerphp/faker": "^1.9.1",

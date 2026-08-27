@@ -26,15 +26,7 @@
         "uspdev/laravel-usp-theme": "^2.8",
         "uspdev/senhaunica-socialite": "^4.5"
     },
-    "repositories": [
-        {
-            "type": "path",
-            "url": "../workflow",
-            "options": {"symlink": true}
-        }
-    ],
     "require-dev": {
-        "spatie/laravel-ignition": "^2.0",
         "fakerphp/faker": "^1.9.1",
         "laravel/dusk": "^8.0",
         "laravel/sail": "^1.0.1",
@@ -42,7 +34,8 @@
         "mockery/mockery": "^1.4.4",
         "nunomaduro/collision": "^8.1",
         "phpunit/phpunit": "^11.0",
-        "uspdev/workflow" : "*"
+        "spatie/laravel-ignition": "^2.0",
+        "uspdev/workflow": "dev-master"
     },
     "autoload": {
         "psr-4": {

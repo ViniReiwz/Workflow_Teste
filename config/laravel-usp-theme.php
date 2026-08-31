@@ -90,7 +90,7 @@ $right_menu = [
     [
         'text' => 'Livros',
         'title' => 'Livros',
-        'terget' => '_self',
+        'target' => '_self',
         'url' => '/livros',
         'align' => 'center',
     ],

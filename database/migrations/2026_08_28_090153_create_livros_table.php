@@ -5,9 +5,8 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 
-class LivrosTable extends Migration
+class CreateLivrosTable extends Migration
 {
-    public const ISBN_LEN = 13;
 
     /**
      * Run the migrations.
@@ -18,7 +17,7 @@ class LivrosTable extends Migration
 
             $table->id();
             $table->timestamps();
-            $table->string('ISBN', SELF::ISBN_LEN);
+            $table->string('ISBN', 13);
             $table->string('titulo');
             $table->string('categoria')->nullable();
             $table->string('autor')->nullable();

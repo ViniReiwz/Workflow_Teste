@@ -87,6 +87,13 @@ $right_menu = [
         'url' => config('app.url') . '/item1',
         'align' => 'right',
     ],
+    [
+        'text' => 'Livros',
+        'title' => 'Livros',
+        'terget' => '_self',
+        'url' => '/livros',
+        'align' => 'center',
+    ],
 ];
 
 

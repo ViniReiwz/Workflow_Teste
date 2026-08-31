@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LivrosController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,3 +22,14 @@ Route::get('/', function () {
 Route::fallback(function(){
     return view('errors.404');
  });
+
+ Route::middleware(['web'])->prefix('livros')->name('livros.')->controller(LivrosController::class)->group( function() {
+
+    Route::get('/', 'index')->name('index');
+    Route::get('/edit/{isbn}', 'edit')->name('edit');
+    Route::post('/create', 'store')->name('create');
+    Route::post('/update', 'store')->name('update');
+    Route::delete('/delete/{isbn}', 'delete')->name('delete');
+
+ });
+ 

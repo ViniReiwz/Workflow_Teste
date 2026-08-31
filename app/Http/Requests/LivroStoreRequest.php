@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
-use LivrosTable;
+use App\Http\Consts\LivrosConsts;
 
 
 class LivroStoreRequest extends FormRequest
@@ -14,7 +14,7 @@ class LivroStoreRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -25,8 +25,9 @@ class LivroStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'ISBN' => 'required|string|digits:' . LivrosTable::ISBN_LEN,
+            'ISBN' => 'required|string|digits:13',
             'titulo' => 'required|string',
+            'qtd_exemplares' => 'required|integer',
         ];
     }
 }

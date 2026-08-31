@@ -12,7 +12,7 @@ class Livro extends Model
 {
     protected $primaryKey = 'ISBN';
     
-    public $incrementign = false;
+    public $incrementing = false;
 
     protected $keyType = 'string';
 
@@ -22,6 +22,7 @@ class Livro extends Model
         'titulo',
         'categoria',
         'autor',
+        'qtd_exemplares',
         ];
 
     protected $casts = [
@@ -29,6 +30,7 @@ class Livro extends Model
         'titulo' => 'string',
         'categoria' => 'string',
         'autor' => 'string',
+        'qtd_exemplares' => 'integer',
     ];
 
     /**
@@ -61,7 +63,7 @@ class Livro extends Model
     /**
      * Retorna todos os livros de uma categoria específica
      * @param string $category
-     * @return \Illuminate\Database\Eloquent\Collection<int, Livro>
+     * @return Collection<int, Livro>
      */
     public static function getAllFromCategory(string $category): Collection
     {
@@ -71,7 +73,7 @@ class Livro extends Model
     /**
      * Retorna todos os livros de um autor específico
      * @param string $author
-     * @return \Illuminate\Database\Eloquent\Collection<int, Livro>
+     * @return Collection<int, Livro>
      */
     public static function getAllFromAuthor(string $author): Collection
     {
@@ -81,16 +83,50 @@ class Livro extends Model
     /**
      * Lida com a persistência de um livro
      * @param LivroStoreRequest $request
-     * @return void
+     * @return Livro
      */
-    public static function store(LivroStoreRequest $request)
+    public static function handleStore(LivroStoreRequest $request): Livro
     {
         /** @var Livro */
         $livro = SELF::findOrNew($request->input('ISBN'));
+        $livro->ISBN = $request->input('ISBN');
         $livro->titulo = $request->input('titulo');
-        $livro->categoria = $request->input('categoria');
-        $livro->autor = $request->input('autor');
+        $livro->categoria = $request->input('categoria') ?? '- Não informada -';
+        $livro->autor = $request->input('autor') ?? '- Não inforamdo -';
+        $livro->qtd_exemplares = $request->input('qtd_exemplares') ?? 0;
         $livro->save();
+
+        return $livro;
+    }
+
+    /**
+     * Verifica se ainda há exemplares deste livro para serem emprestados
+     * @return bool
+     */
+    public function hasRemanining(): bool
+    {
+        return ($this->qtd_exemplares > 0);
+    }
+
+    /**
+     * Verifica se o livro está emprestado atualmente
+     * @return bool
+     */
+    private function isHanded()
+    {
+        $emprestimos = Emprestimo::getAllFromBook($this->id);
+        return !$emprestimos->isEmpty();
+    }
+
+    /**
+     * Remove um livro do banco de dados (caso não esteja emprestado)
+     * @return bool
+     */
+    public function delete(): bool
+    {
+        $isHanded = $this->isHanded();
+        if($isHanded) { return false; }
+        else { return parent::delete(); }
     }
 
 }

@@ -57,9 +57,10 @@ class EmprestimoController extends Controller
                     'livro_id' => $livro_id
                 ]);
 
-                Workflow::start('emprestimo_livro', $emprestimo);
+                // TODO - Implementar definição emprestimo_livro
+                // Workflow::start('emprestimo_livro', $emprestimo);
 
-                return redirect()->route('emprestimos.index')->with('alert-success', 'Empréstimo do livro ' . $livro->titulo . ' realizado com sucesso');
+                return redirect()->route('emprestimos.fromUser')->with('alert-success', 'Empréstimo do livro \'' . $livro->titulo . '\' realizado com sucesso');
             }
             else
             {
@@ -76,9 +77,10 @@ class EmprestimoController extends Controller
     {
         $emprestimo = Emprestimo::find($emprestimo_id);
         if ($emprestimo) {
-            $emprestimo->getLivro()->retrieveBook();
+            $livro = $emprestimo->getLivro();
+            $livro->retrieveBook();
             $emprestimo->delete();
-            return redirect()->back()->with('alert-success', 'Empréstimo cancelado com sucesso');
+            return redirect()->back()->with('alert-success','\'' . $livro->titulo . '\' devolvido com sucesso !');
         }
         return redirect()->back()->with('alert-danger', 'Empréstimo não encontrado');
     }

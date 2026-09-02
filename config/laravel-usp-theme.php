@@ -64,6 +64,16 @@ $menu = [
         'submenu' => $admin,
         'can' => 'admin',
     ],
+    [
+        'text' => 'Novo empréstimo',
+        'url' => '/emprestimos/create',
+        'can' => 'user',
+    ],
+    [
+        'text' => 'Meus empréstimos',
+        'url' => '/emprestimos/fromUser',
+        'can' => 'user',
+    ],
 ];
 
 $right_menu = [

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\LivrosController;
+use App\Http\Controllers\EmprestimoController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,6 +31,18 @@ Route::fallback(function(){
     Route::post('/create', 'store')->name('create');
     Route::post('/update', 'store')->name('update');
     Route::delete('/delete/{isbn}', 'delete')->name('delete');
+
+ });
+
+ Route::middleware(['web'])->prefix('emprestimos')->name('emprestimos.')->controller(EmprestimoController::class)->group( function() {
+
+    Route::get('/', 'index')->name('index');
+    Route::get('/fromUser', 'showUserEmprestimos')->name('fromUser');
+    Route::get('/create', 'showCreateForm')->name('showCreateForm');
+    Route::post('/create', 'create')->name('create');
+    Route::delete('/delete/{emprestimo_id}', 'delete')->name('delete');
+    Route::get('/search-book', 'searchBook')->name('search-book');
+    Route::get('/busca', 'searchBook')->name('busca');
 
  });
  

@@ -66,12 +66,12 @@ $menu = [
     ],
     [
         'text' => 'Novo empréstimo',
-        'url' => '/emprestimos/create',
+        'url' => 'emprestimos/create',
         'can' => 'user',
     ],
     [
         'text' => 'Meus empréstimos',
-        'url' => '/emprestimos/fromUser',
+        'url' => 'emprestimos/fromUser',
         'can' => 'user',
     ],
 ];
@@ -91,18 +91,14 @@ $right_menu = [
         'key' => 'laravel-tools',
     ],
     [
+        'key' => 'admin-book-view',
+    ],
+    [
         'text' => '<i class="fas fa-cog"></i>',
         'title' => 'Configurações',
         'target' => '_blank',
         'url' => config('app.url') . '/item1',
         'align' => 'right',
-    ],
-    [
-        'text' => 'Livros',
-        'title' => 'Livros',
-        'target' => '_self',
-        'url' => '/livros',
-        'align' => 'center',
     ],
 ];
 

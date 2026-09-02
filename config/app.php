@@ -210,4 +210,5 @@ return [
 
     ],
 
+    'adminGate' => 'admin',
 ];

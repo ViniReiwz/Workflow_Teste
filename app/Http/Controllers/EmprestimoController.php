@@ -56,9 +56,8 @@ class EmprestimoController extends Controller
                     'user_id' => Auth()->user()->id,
                     'livro_id' => $livro_id
                 ]);
-
-                // TODO - Implementar definição emprestimo_livro
-                // Workflow::start('emprestimo_livro', $emprestimo);
+                
+                Workflow::start('emprestimo_livro_simples', $emprestimo);
 
                 return redirect()->route('emprestimos.fromUser')->with('alert-success', 'Empréstimo do livro \'' . $livro->titulo . '\' realizado com sucesso');
             }

@@ -38,7 +38,9 @@
                             <td>{{ $emprestimo->getLivro()->titulo }}</td>
                             <td>{{ $emprestimo->getLivro()->autor }}</td>
                             <td>{{ $emprestimo->getLivro()->categoria }}</td>
-                            <td> placeholder_situacao </td>
+                            <td>
+                                <a href="{{ route('workflows.showObject', ['id' => $emprestimo->getWorkflowObject()->id]) }}"> {{ implode(', ',$emprestimo->getWorkflowObject()->current_places) }} </a> 
+                            </td>
                             <td>
                                 @include('emprestimos.partials.delete-btn', ['emprestimo' => $emprestimo])
                             </td>

@@ -4,6 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Uspdev\Workflow\Models\WorkflowObject;
+use Uspdev\Workflow\Workflow;
+
 
 class Emprestimo extends Model
 {
@@ -47,12 +50,20 @@ class Emprestimo extends Model
     }
 
     /**
-     * 
-     * Retorna o usuário a que aquele empréstimo se reere
+     * Retorna o usuário a que aquele empréstimo se refere
      * @return ?User
      */
     public function getUser(): ?User
     {
         return User::find($this->user_id);
+    }
+
+    /**
+     * Retorna o objeto de workflow atrelado ao empréstimo
+     * @return WorkflowObject
+     */
+    public function getWorkflowObject(): ?WorkflowObject
+    {
+        return Workflow::find($this);
     }
 }

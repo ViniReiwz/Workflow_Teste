@@ -50,11 +50,8 @@ class EmprestimoController extends Controller
         $livro_id = (int) $request->input('livro_id');
 
         $livro = Livro::where('id', $livro_id)->first();
-        if($livro->hasRemanining())
+        if($livro->handBook())
             {
-                $livro->qtd_exemplares--;
-                $livro->save();
-
                 $emprestimo = Emprestimo::create([
                     'user_id' => Auth()->user()->id,
                     'livro_id' => $livro_id
@@ -79,6 +76,7 @@ class EmprestimoController extends Controller
     {
         $emprestimo = Emprestimo::find($emprestimo_id);
         if ($emprestimo) {
+            $emprestimo->getLivro()->retrieveBook();
             $emprestimo->delete();
             return redirect()->back()->with('alert-success', 'Empréstimo cancelado com sucesso');
         }

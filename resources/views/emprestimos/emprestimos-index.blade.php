@@ -38,8 +38,10 @@
                             <td>{{ $emprestimo->getLivro()->titulo }}</td>
                             <td>{{ $emprestimo->getLivro()->autor }}</td>
                             <td>{{ $emprestimo->getLivro()->categoria }}</td>
-                            <td> placeholder </td>
-                            <td> Placeholder_Acoes </td>
+                            <td> placeholder_situacao </td>
+                            <td>
+                                @include('emprestimos.partials.delete-btn', ['emprestimo' => $emprestimo])
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>

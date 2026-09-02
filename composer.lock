@@ -10855,12 +10855,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/uspdev/workflow.git",
-                "reference": "be39fbdb9dec7f6c254734a4f933584fa2b8f9ae"
+                "reference": "33a352fce947eee030acdf2fb09b32ed5f29b4f2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/uspdev/workflow/zipball/be39fbdb9dec7f6c254734a4f933584fa2b8f9ae",
-                "reference": "be39fbdb9dec7f6c254734a4f933584fa2b8f9ae",
+                "url": "https://api.github.com/repos/uspdev/workflow/zipball/33a352fce947eee030acdf2fb09b32ed5f29b4f2",
+                "reference": "33a352fce947eee030acdf2fb09b32ed5f29b4f2",
                 "shasum": ""
             },
             "require": {
@@ -10907,7 +10907,7 @@
                 "issues": "https://github.com/uspdev/workflow/issues",
                 "source": "https://github.com/uspdev/workflow/tree/master"
             },
-            "time": "2026-09-02T18:43:08+00:00"
+            "time": "2026-09-02T19:10:12+00:00"
         }
     ],
     "aliases": [],

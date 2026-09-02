@@ -4,12 +4,15 @@ namespace App\Models;
 
 use App\Http\Requests\LivroStoreRequest;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Emprestimo;
 use Ramsey\Collection\Collection;
 
 class Livro extends Model
 {
+    use HasFactory;
+    
     protected $primaryKey = 'ISBN';
     
     public $incrementing = false;

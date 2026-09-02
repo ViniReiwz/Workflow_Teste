@@ -22,6 +22,7 @@
                         <th>Título</th>
                         <th>Autor</th>
                         <th>Categoria</th>
+                        <th>Quantidade de Exemplares</th>
                         <th>Ações</th>
                     </tr>
                 </thead>
@@ -33,6 +34,7 @@
                             <td>{{ $livro->titulo }}</td>
                             <td>{{ $livro->autor }}</td>
                             <td>{{ $livro->categoria }}</td>
+                            <td>{{ $livro->qtd_exemplares }}</td>
                             <td>
                                <a href="{{ route('livros.edit', ['isbn' => $livro->ISBN]) }}" class="btn btn-warning btn-sm"> 
                                     Editar 

@@ -5,7 +5,7 @@ namespace App\Models;
 use App\Http\Requests\LivroStoreRequest;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
+use App\Models\Emprestimo;
 use Ramsey\Collection\Collection;
 
 class Livro extends Model
@@ -106,6 +106,36 @@ class Livro extends Model
     public function hasRemanining(): bool
     {
         return ($this->qtd_exemplares > 0);
+    }
+
+    /**
+     * Empresta o livro, se possível, decrementeando a quantidade de exemplares disponíveis
+     * retornando 'true' caso o empréstimo tenha sido realizado com sucesso, ou 'false' caso 
+     * contrário
+     * @return bool
+     */
+    public function handBook(): bool
+    {
+        if($this->hasRemanining())
+        {
+            $this->qtd_exemplares--;
+            $this->save();
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    /**
+     * Retorna um livro, incrementeando a quantidade de exemplares disponíveis
+     * @return void
+     */
+    public function retrieveBook()
+    {
+        $this->qtd_exemplares++;
+        $this->save();
     }
 
     /**

@@ -125,7 +125,8 @@ class EmprestimoController extends Controller
 
         foreach($workflowObjects as $workflowObject)
         {
-            $emprestimos->push($workflowObject->object);
+            $emprestimo = $workflowObject->object;
+            if(isset($emprestimo)){$emprestimos->push($emprestimo);}
         }
 
         return view('emprestimos.emprestimos-show', ['emprestimos' => $emprestimos, 'fromOthers' => true]);

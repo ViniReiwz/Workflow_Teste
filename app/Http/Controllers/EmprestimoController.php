@@ -57,7 +57,10 @@ class EmprestimoController extends Controller
                     'livro_id' => $livro_id
                 ]);
                 
-                Workflow::start('emprestimo_livro_simples', $emprestimo);
+                $object = Workflow::start('emprestimo_livro_simples', $emprestimo);
+
+                // Aplica a transitção para que os bibliotecários sejam notificados, e já passa o pedido para análise.
+                $object->apply('tr_enviar', user: Auth()->user());
 
                 return redirect()->route('emprestimos.fromUser')->with('alert-success', 'Empréstimo do livro \'' . $livro->titulo . '\' realizado com sucesso');
             }

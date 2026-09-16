@@ -22,6 +22,15 @@ class Emprestimo extends Model
     ];
 
     /**
+     * Define o relacionamento entre Empréstimo e usuário
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<TRelatedModel, Emprestimo>
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    /**
      * Retorna todos os empréstimos do usuário
      * @param int $user_id
      * @return Collection<int, Emprestimo>

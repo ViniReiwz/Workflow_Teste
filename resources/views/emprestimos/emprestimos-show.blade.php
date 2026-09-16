@@ -21,6 +21,9 @@
                         @if(Gate::allows('admin'))
                             <th>ID Usuário</th>
                         @endif
+                        @if($fromOthers ?? false)
+                            <th>Requisitador</th>
+                        @endif
                         <th>Título</th>
                         <th>Autor</th>
                         <th>Categoria</th>
@@ -35,6 +38,9 @@
                             @if(Gate::allows('admin'))
                                 <td>{{ $emprestimo->user_id }}</td>
                             @endif
+                            @if($fromOthers ?? false)
+                                <td>{{ $emprestimo->user->codpes }}</td>
+                            @endif
                             <td>{{ $emprestimo->getLivro()->titulo }}</td>
                             <td>{{ $emprestimo->getLivro()->autor }}</td>
                             <td>{{ $emprestimo->getLivro()->categoria }}</td>
@@ -42,7 +48,9 @@
                                 <a href="{{ route('workflows.showObject', ['id' => $emprestimo->getWorkflowObject()->id]) }}"> {{ implode(', ',$emprestimo->getWorkflowObject()->current_places) }} </a> 
                             </td>
                             <td>
-                                @include('emprestimos.partials.delete-btn', ['emprestimo' => $emprestimo])
+                                @if(in_array('finalizado', $emprestimo->getWorkflowObject()->current_places) && $emprestimo->user_id == Auth()->user()->id)
+                                    @include('emprestimos.partials.delete-btn', ['emprestimo' => $emprestimo])
+                                    @endif
                             </td>
                         </tr>
                     @endforeach

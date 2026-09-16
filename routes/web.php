@@ -43,6 +43,7 @@ Route::fallback(function(){
     Route::delete('/delete/{emprestimo_id}', 'delete')->name('delete');
     Route::get('/search-book', 'searchBook')->name('search-book');
     Route::get('/busca', 'searchBook')->name('busca');
+    Route::get('/atendimentos', 'showAntendimentos')->name('atendimentos');
 
  });
  

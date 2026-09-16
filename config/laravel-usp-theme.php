@@ -74,6 +74,11 @@ $menu = [
         'url' => 'emprestimos/fromUser',
         'can' => 'user',
     ],
+    [
+        'text' => 'Atendimentos',
+        'url' => 'emprestimos/atendimentos',
+        'can' => 'bibliotecario'
+    ]
 ];
 
 $right_menu = [

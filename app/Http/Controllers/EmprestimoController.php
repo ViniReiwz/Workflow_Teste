@@ -8,6 +8,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Models\Livro;
+use Illuminate\Support\Collection;
 use Uspdev\Workflow\Workflow;
 
 class EmprestimoController extends Controller
@@ -78,9 +79,13 @@ class EmprestimoController extends Controller
     public function delete(int $emprestimo_id): RedirectResponse
     {
         $emprestimo = Emprestimo::find($emprestimo_id);
-        if ($emprestimo) {
+        if ($emprestimo) 
+        {
             $livro = $emprestimo->getLivro();
             $livro->retrieveBook();
+            // TODO - Faz sentido isso ?  (mas não dá pra deletar por conta de history)
+            // $workflowObj = Workflow::find($emprestimo);
+            // $workflowObj->delete();
             $emprestimo->delete();
             return redirect()->back()->with('alert-success','\'' . $livro->titulo . '\' devolvido com sucesso !');
         }
@@ -94,7 +99,7 @@ class EmprestimoController extends Controller
     public function index(): View
     {
         $all_emprestimos = Emprestimo::all();
-        return view('emprestimos.emprestimos-index', ['emprestimos' => $all_emprestimos]);
+        return view('emprestimos.emprestimos-show', ['emprestimos' => $all_emprestimos, 'fromOthers' => true]);
     }
 
     /**
@@ -104,6 +109,25 @@ class EmprestimoController extends Controller
     public function showUserEmprestimos(): View
     {
         $user_emprestimos = Emprestimo::getAllFromUser(Auth()->user()->id);
-        return view('emprestimos.emprestimos-index', ['emprestimos' => $user_emprestimos]);
+        return view('emprestimos.emprestimos-show', ['emprestimos' => $user_emprestimos]);
+    }
+
+    /**
+     * Exibe os empréstimos no qual o usuário têm um papel a desempenhar
+     * @return View
+     */
+    public function showAntendimentos(): View
+    {
+        $workflowObjects = Workflow::getUserRelatedObjects(Auth()->user());
+        
+        /** @var Collection<int, Emprestimo> */
+        $emprestimos = collect();
+
+        foreach($workflowObjects as $workflowObject)
+        {
+            $emprestimos->push($workflowObject->object);
+        }
+
+        return view('emprestimos.emprestimos-show', ['emprestimos' => $emprestimos, 'fromOthers' => true]);
     }
 }

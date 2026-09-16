@@ -16,7 +16,7 @@ class LivrosController extends Controller
     public function index(): View
     {
         $all_books = Livro::all();
-        return view('livros-index', ['livros' => $all_books]);
+        return view('livros.livros-index', ['livros' => $all_books]);
     }
 
     /**
@@ -47,7 +47,7 @@ class LivrosController extends Controller
         }
 
 
-        return view('edit-livro-form', ['action' => $action, 'livro' => $livro]);
+        return view('livros.edit-livro-form', ['action' => $action, 'livro' => $livro]);
     }
 
     /**

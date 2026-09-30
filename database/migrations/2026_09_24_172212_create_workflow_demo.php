@@ -32,6 +32,7 @@ class CreateWorkflowDemo extends Migration
         ]);
 
         $workflow_def = WorkflowDefinition::storeDefinition($workflow_demo);
+        $workflow_def->publish();
         app(FormDefinitionService::class)->createFromRequest($form_demo);
     }
 

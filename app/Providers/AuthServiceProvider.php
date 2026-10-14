@@ -26,12 +26,15 @@ class AuthServiceProvider extends ServiceProvider
     {
         $workflow = Workflow::loadDefinition('emprestimo_livro_simples');        
         
-        Gate::define('bibliotecario', function ($user) use ($workflow) {
-            return $workflow->verifyRole('bibliotecario', $user);
-        });
 
+        Gate::define('bibliotecario', function ($user) use ($workflow) {
+            if(isset($workflow)){ return $workflow->verifyRole('bibliotecario', $user); }
+            return false;
+        });
+    
         Gate::define('usuario', function ($user) use ($workflow) {
-            return $workflow->verifyRole('usuario', $user);
+            if(isset($workflow)){ return $workflow->verifyRole('usuario', $user); }
+            return false;
         });
     }
 }

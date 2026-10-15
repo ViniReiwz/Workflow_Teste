@@ -81,7 +81,7 @@ class CreateWorkflowDemo extends Migration
                     "notifications": { 
                             "append_roles": [
                                 "bibliotecario"
-                            ],
+                            ]
                         } 
                     }, 
                     {
@@ -104,7 +104,7 @@ class CreateWorkflowDemo extends Migration
                                 "usuario"
                             ],
                             "emails":[
-                                "greisvini@gmail.com",
+                                "greisvini@gmail.com"
                             ]
                         }
                     } 

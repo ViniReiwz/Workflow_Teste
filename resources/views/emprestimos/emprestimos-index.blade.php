@@ -4,8 +4,7 @@
 <div class="container mt-4">
 
     <h1 class="mb-4">
-        Empréstimos
-        {{-- <a href="{{ route('livros.edit', ['isbn' => 'new']) }}" class="btn btn-primary btn-sm">Adicionar livro</a> --}}
+        {{ $header ?? 'Empréstimos' }}
     </h1>
     
 

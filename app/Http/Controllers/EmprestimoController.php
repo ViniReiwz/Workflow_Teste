@@ -99,7 +99,7 @@ class EmprestimoController extends Controller
     public function index(): View
     {
         $all_emprestimos = Emprestimo::all();
-        return view('emprestimos.emprestimos-show', ['emprestimos' => $all_emprestimos, 'fromOthers' => true]);
+        return view('emprestimos.emprestimos-index', ['emprestimos' => $all_emprestimos, 'fromOthers' => true]);
     }
 
     /**
@@ -109,7 +109,7 @@ class EmprestimoController extends Controller
     public function showUserEmprestimos(): View
     {
         $user_emprestimos = Emprestimo::getAllFromUser(Auth()->user()->id);
-        return view('emprestimos.emprestimos-show', ['emprestimos' => $user_emprestimos]);
+        return view('emprestimos.emprestimos-index', ['emprestimos' => $user_emprestimos, 'header' => 'Meus empréstimos']);
     }
 
     /**
@@ -129,6 +129,6 @@ class EmprestimoController extends Controller
             if(isset($emprestimo)){$emprestimos->push($emprestimo);}
         }
 
-        return view('emprestimos.emprestimos-show', ['emprestimos' => $emprestimos, 'fromOthers' => true]);
+        return view('emprestimos.emprestimos-index', ['emprestimos' => $emprestimos, 'fromOthers' => true, 'header' => 'Atendimentos']);
     }
 }

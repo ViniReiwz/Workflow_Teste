@@ -131,4 +131,13 @@ class EmprestimoController extends Controller
 
         return view('emprestimos.emprestimos-index', ['emprestimos' => $emprestimos, 'fromOthers' => true, 'header' => 'Atendimentos']);
     }
+
+    public function showEmprestimo(int $emprestimo_id)
+    {
+        
+        $emprestimo = Emprestimo::find($emprestimo_id);
+        $workflowObjectData = Workflow::getObjectData($emprestimo->getWorkflowObject());
+
+        return view('emprestimos.emprestimos-show', ['emprestimo' => $emprestimo, 'workflowObjectData' => $workflowObjectData]);
+    }
 }

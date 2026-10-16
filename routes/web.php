@@ -36,14 +36,15 @@ Route::fallback(function(){
 
  Route::middleware(['web'])->prefix('emprestimos')->name('emprestimos.')->controller(EmprestimoController::class)->group( function() {
 
-    Route::get('/', 'index')->name('index');
-    Route::get('/fromUser', 'showUserEmprestimos')->name('fromUser');
-    Route::get('/create', 'showCreateForm')->name('showCreateForm');
-    Route::post('/create', 'create')->name('create');
-    Route::delete('/delete/{emprestimo_id}', 'delete')->name('delete');
-    Route::get('/search-book', 'searchBook')->name('search-book');
-    Route::get('/busca', 'searchBook')->name('busca');
-    Route::get('/atendimentos', 'showAntendimentos')->name('atendimentos');
+   Route::get('/', 'index')->name('index');
+   Route::get('/fromUser', 'showUserEmprestimos')->name('fromUser');
+   Route::get('/create', 'showCreateForm')->name('showCreateForm');
+   Route::post('/create', 'create')->name('create');
+   Route::delete('/delete/{emprestimo_id}', 'delete')->name('delete');
+   Route::get('/search-book', 'searchBook')->name('search-book');
+   Route::get('/busca', 'searchBook')->name('busca');
+   Route::get('/atendimentos', 'showAntendimentos')->name('atendimentos');
+   Route::get('/show/{emprestimo_id}', 'showEmprestimo')->name('showEmprestimo');
 
  });
  

@@ -44,7 +44,7 @@
                             <td>{{ $emprestimo->getLivro()->autor }}</td>
                             <td>{{ $emprestimo->getLivro()->categoria }}</td>
                             <td>
-                                <a href="{{ route('workflows.showObject', ['id' => $emprestimo->getWorkflowObject()->id]) }}"> {{ implode(', ',$emprestimo->getWorkflowObject()->current_places) }} </a> 
+                                <a href="{{ route('emprestimos.showEmprestimo', ['emprestimo_id' => $emprestimo->id]) }}"> {{ implode(', ',$emprestimo->getWorkflowObject()->current_places) }} </a> 
                             </td>
                             <td>
                                 @if(in_array('finalizado', $emprestimo->getWorkflowObject()->current_places) && $emprestimo->user_id == Auth()->user()->id)

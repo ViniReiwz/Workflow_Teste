@@ -67,12 +67,12 @@ $menu = [
     [
         'text' => 'Novo empréstimo',
         'url' => 'emprestimos/create',
-        'can' => 'user',
+        'can' => 'usuario',
     ],
     [
         'text' => 'Meus empréstimos',
         'url' => 'emprestimos/fromUser',
-        'can' => 'user',
+        'can' => 'usuario',
     ],
     [
         'text' => 'Atendimentos',

@@ -21,12 +21,17 @@ class EmprestimoController extends Controller
      */
     public function searchBook(Request $request): JsonResponse
     {
-        $search = $request->input('busca');
-        $livros = Livro::where('titulo', 'like', "%{$search}%")->orWhere('ISBN', 'like', "%{$search}%")->get([
-            'id',
-            'titulo',
-            'ISBN'
-        ]);
+        $search = trim($request->input('busca', ''));
+        $livros = Livro::query()
+            ->when($search != '', function ($query) use ($search){
+                $query->where(function ($q) use ($search){
+                    $q->where('titulo', 'like', "%{$search}%")
+                    ->orWhere('ISBN', 'like', "%{$search}%");
+                });
+            })
+            ->orderBy('titulo')
+            ->limit(50)
+            ->get(['id', 'titulo', 'ISBN']);
 
         return response()->json($livros);
     }

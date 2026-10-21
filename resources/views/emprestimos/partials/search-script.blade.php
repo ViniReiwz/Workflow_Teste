@@ -2,55 +2,94 @@
     document.addEventListener('DOMContentLoaded', function () {
 
         const busca = document.getElementById('busca-livro');
-        const select = document.getElementById('livro');
+        const lista = document.getElementById('lista-livros');
+        const livroId = document.getElementById('livro_id');
+        const form = busca.closest('form');
+        const url = "{{ route('emprestimos.busca') }}";
 
         let timeout;
+        let controller;
 
-        busca.addEventListener('input', function () {
+        function mostrarMensagem(texto) {
+            lista.innerHTML = `<div class="list-group-item text-muted">${texto}</div>`;
+            lista.style.display = 'block';
+        }
 
-            // Cancela a requisição agendada anteriormente
-            clearTimeout(timeout);
+        function carregarLivros(termo = '') {
 
-            const termo = this.value.trim();
-            // Não pesquisa se tiver menos de 2 caracteres
-            if (termo.length < 2) {
-                select.innerHTML =
-                    '<option value="">Digite pelo menos 2 caracteres</option>';
+            if (controller) controller.abort();
+            controller = new AbortController();
 
-                return;
-            }
+            fetch(`${url}?busca=${encodeURIComponent(termo)}`, {
+                signal: controller.signal,
+                headers: { 'Accept': 'application/json' }
+            })
+                .then(response => {
+                    if (!response.ok) throw new Error('Erro na requisição');
+                    return response.json();
+                })
+                .then(livros => {
 
-            // Aguarda 300ms antes de fazer a pesquisa
-            timeout = setTimeout(() => {
-            const url =  "{{ route('emprestimos.busca') }}"
-                fetch(`${url}?busca=${encodeURIComponent(termo)}`)
-                    .then(response => response.json())
-                    .then(livros => {
-                        // Limpa as opções anteriores
-                        select.innerHTML =
-                            '<option value="">Selecione um livro</option>';
+                    lista.innerHTML = '';
 
-                        // Adiciona os livros encontrados
-                        livros.forEach(livro => {
+                    if (livros.length === 0) {
+                        mostrarMensagem('Nenhum livro encontrado');
+                        return;
+                    }
 
-                            const option = document.createElement('option');
+                    livros.forEach(livro => {
+                        const item = document.createElement('button');
+                        item.type = 'button';
+                        item.className = 'list-group-item list-group-item-action';
+                        item.textContent = `${livro.titulo} — ISBN: ${livro.ISBN}`;
 
-                            option.value = livro.id;
-
-                            option.textContent =
-                                `${livro.titulo} — ISBN: ${livro.ISBN}`;
-
-                            select.appendChild(option);
+                        item.addEventListener('click', function () {
+                            busca.value = livro.titulo;   // mostra o título no campo
+                            livroId.value = livro.id;     // guarda o ID para o envio
+                            lista.style.display = 'none';
                         });
 
-                        // Caso não encontre nenhum livro
-                        if (livros.length === 0) {
-
-                            select.innerHTML =
-                                '<option value="">Nenhum livro encontrado</option>';
-                        }
+                        lista.appendChild(item);
                     });
-            }, 300);
+
+                    lista.style.display = 'block';
+                })
+                .catch(error => {
+                    if (error.name === 'AbortError') return;
+                    console.error(error);
+                    mostrarMensagem('Erro ao carregar livros');
+                });
+        }
+
+        // Ao digitar: filtra por título ou ISBN
+        busca.addEventListener('input', function () {
+            clearTimeout(timeout);
+            livroId.value = ''; // se o texto mudou, a escolha anterior deixa de valer
+
+            const termo = this.value.trim();
+
+            timeout = setTimeout(() => carregarLivros(termo), 300);
+        });
+
+        // Ao clicar/focar no campo: mostra a lista (alfabética se estiver vazio)
+        busca.addEventListener('focus', function () {
+            carregarLivros(this.value.trim());
+        });
+
+        // Fecha a lista ao clicar fora
+        document.addEventListener('click', function (e) {
+            if (!busca.contains(e.target) && !lista.contains(e.target)) {
+                lista.style.display = 'none';
+            }
+        });
+
+        // Impede enviar sem ter escolhido um livro da lista
+        form.addEventListener('submit', function (e) {
+            if (!livroId.value) {
+                e.preventDefault();
+                busca.focus();
+                mostrarMensagem('Selecione um livro da lista');
+            }
         });
     });
 </script>

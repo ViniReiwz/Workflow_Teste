@@ -1,6 +1,5 @@
 @extends('layouts.app')
 @section('content') 
-    @include('emprestimos.partials.search-script')
     <h1>Novo empréstimo</h1>
     <form action="{{ route('emprestimos.create') }}" method="POST">
         @csrf
@@ -15,23 +14,24 @@
                     id="busca-livro"
                     class="form-control mb-2"
                     placeholder="Digite o título ou ISBN..."
-                    autocomplete="off"
+                    autocomplete="on"
                     >
                     
-                <select
+                <input
+                    type="hidden"
                     name="livro_id"
-                    id="livro"
-                    class="form-select"
-                    required
+                    id="livro_id"
                 >
-                    <option value="">
-                        Selecione um livro
-                    </option>
-                </select>
+                <div
+                    id="lista-livros"
+                    class="list-group position-absolute w-100 shadow"
+                    style="z-index: 1000; max-height: 250px; overflow-y: auto; display: none;"
+                ></div>
             </div>
 
             <button type="submit" class="btn btn-primary">
                 Enviar
             </button>
         </form>
+        @include('emprestimos.partials.search-script')
 @endsection

@@ -7,12 +7,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Uspdev\SenhaunicaSocialite\Traits\HasSenhaunica;
+use Uspdev\Workflow\Traits\HasWfRoles;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
-    use \Spatie\Permission\Traits\HasRoles;
-    use \Uspdev\SenhaunicaSocialite\Traits\HasSenhaunica;
+    use HasApiTokens, HasFactory, Notifiable, HasSenhaunica, HasWfRoles;
 
     /**
      * The attributes that are mass assignable.

@@ -88,9 +88,6 @@ class EmprestimoController extends Controller
         {
             $livro = $emprestimo->getLivro();
             $livro->retrieveBook();
-            // TODO - Faz sentido isso ?  (mas não dá pra deletar por conta de history)
-            // $workflowObj = Workflow::find($emprestimo);
-            // $workflowObj->delete();
             $emprestimo->delete();
             return redirect()->back()->with('alert-success','\'' . $livro->titulo . '\' devolvido com sucesso !');
         }
@@ -137,7 +134,13 @@ class EmprestimoController extends Controller
         return view('emprestimos.emprestimos-index', ['emprestimos' => $emprestimos, 'fromOthers' => true, 'header' => 'Atendimentos']);
     }
 
-    public function showEmprestimo(int $emprestimo_id)
+    /**
+     * Exibe os detlahes de um empréstimo específico
+     * 
+     * @param $emprestimo_id
+     * @return View
+     */
+    public function showEmprestimo(int $emprestimo_id): View
     {
         
         $emprestimo = Emprestimo::find($emprestimo_id);

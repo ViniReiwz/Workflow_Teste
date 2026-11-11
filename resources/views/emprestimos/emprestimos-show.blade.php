@@ -8,6 +8,5 @@
             - Código do empréstimo: {{ $emprestimo->id }}
             @endif
         </h1>
-
-        @include('uspdev-workflow::object.show.showObject')
+        @include('uspdev-workflow::object.show.partials.show-obj-cntnt')
     @endsection

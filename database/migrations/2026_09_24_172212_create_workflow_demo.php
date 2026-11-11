@@ -122,7 +122,7 @@ class CreateWorkflowDemo extends Migration
                     "name": "user_codpes", 
                     "type": "pessoa-usp", 
                     "label": "Código do Bibliotecário", 
-                    "required": true,
+                    "required": true
                 }, 
                 [ 
                     { 
